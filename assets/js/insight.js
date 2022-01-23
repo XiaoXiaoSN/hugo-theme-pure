@@ -196,6 +196,26 @@
         $input.trigger('input');
     });
 
+    let searchTriggerCounter = 0
+    let searchTriggerTimeoutID = null
+    function searchTrigger(action) {
+      if (searchTriggerCounter === 0) {
+        searchTriggerCounter += 1
+        searchTriggerTimeoutID = setTimeout(() => searchTriggerCounter = 0, 500)
+
+        return
+      }
+
+      // press key twice
+      searchTriggerCounter = 0
+      clearTimeout(searchTriggerTimeoutID)
+
+      if (action === 'show') {
+        $main.addClass('show');
+      } else {
+        $main.removeClass('show');
+      }
+    }
 
     $(document).on('click focus', '.search-form-input', function () {
         $main.addClass('show');
@@ -205,16 +225,27 @@
     }).on('click', '.ins-close', function () {
         $main.removeClass('show');
     }).on('keydown', function (e) {
-        if (!$main.hasClass('show')) return;
-        switch (e.keyCode) {
-            case 27: // ESC
+        // search popup is closed
+        if (!$main.hasClass('show')) {
+          switch (e.code) {
+            case 'Shift', 'ShiftRight', 'ShiftLeft':
+              searchTrigger('show')
+          }
+          return
+        };
+
+        // search popup is showed
+        switch (e.code) {
+            case 'Escape':
                 $main.removeClass('show'); break;
-            case 38: // UP
+            case 'ArrowUp':
                 selectItemByDiff(-1); break;
-            case 40: // DOWN
+            case 'ArrowDown':
                 selectItemByDiff(1); break;
-            case 13: //ENTER
+            case 'Enter': //ENTER
                 gotoLink($container.find('.ins-selectable.active').eq(0)); break;
+            case 'Shift', 'ShiftRight', 'ShiftLeft':
+              searchTrigger('close')
         }
     });
 })(jQuery, window.INSIGHT_CONFIG);
