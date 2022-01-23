@@ -16,23 +16,17 @@
         {{ partial "post/title.html" . -}}
         {{- .Scratch.Delete "class_name"}}
       </div>
+
       {{- if .Description }}
       <div class="article-entry text-muted" itemprop="description">
         {{- .Description -}}
       </div>
-      {{ else if .Summary }}
-      <div class="article-entry text-muted" itemprop="description">
-        {{ .Summary }}
-      </div>
       {{- end }}
+
       <p class="article-meta">
         {{- partial "post/date.html" . }}
         {{- partial "post/category.html" . }}
         {{- partial "post/tag.html" . }}
-        {{- if .Site.Params.comment.type }}
-        <span class="post-comment"><i class="icon icon-comment"></i> &nbsp;<a href="{{- .RelPermalink }}#comments" class="article-comment-link">{{- T "article_comments" }}</a></span>
-        {{- end }}
-        {{- partial "post/wc.html" . }}
       </p>
     </article>
     {{- end -}}

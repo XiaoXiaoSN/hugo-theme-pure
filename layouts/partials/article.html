@@ -1,7 +1,7 @@
 <div class="content">
   <article id="{{ .Params.layout }}-{{ .Params.slug }}" class="article article-type-{{ .Params.layout }}" itemscope
     itemtype="http://schema.org/BlogPosting">
-    <!-- TODO gallary -->
+    <!-- TODO gallery -->
     {{- partial "post/gallery" .}}
     <div class="article-header">
       {{- if or (.Permalink) (.Title)}}
