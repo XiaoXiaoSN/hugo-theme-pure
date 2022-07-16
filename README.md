@@ -1,3 +1,6 @@
+The original source are https://gitee.com/lylyalong/hugo-theme-pure or https://github.com/xiaoheiAh/hugo-theme-pure
+
+---
 # hugo-theme-pure
 
 A port of [hexo-theme-pure](https://github.com/cofess/hexo-theme-pure) for Hugo. Powerful & Clean. [Iconfont](http://blog.cofess.com/hexo-theme-pure/iconfont/demo_fontclass.html)
