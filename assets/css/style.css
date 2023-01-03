@@ -6080,7 +6080,7 @@ body.no-sidebar .sidebar {
 .category-list-count,
 .tag-list-count,
 .archive-list-count {
-  padding-left: 5px;
+  padding-left: .2rem;
   color: #999;
   font-size: 0.85em;
 }
