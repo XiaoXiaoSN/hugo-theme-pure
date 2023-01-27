@@ -11,19 +11,9 @@
   $("body").append($main);
 
   function section(title) {
-    // Create a new section element
-    const newSection = document.createElement("section");
-    newSection.classList.add("ins-section");
-  
-    // Create a new header element
-    const newHeader = document.createElement("header");
-    newHeader.classList.add("ins-section-header");
-    newHeader.textContent = title;
-  
-    // Append the header to the section
-    newSection.appendChild(newHeader);
-  
-    return newSection;
+    return $("<section>")
+      .addClass("ins-section")
+      .append($("<header>").addClass("ins-section-header").text(title));
   }
 
   function searchItem(icon, title, slug, preview, url) {
@@ -59,7 +49,6 @@
     }
 
     searchItemDiv.appendChild(header);
-
     // Create and append a p element with "ins-search-preview" class if preview is provided
     if (preview) {
       const p = document.createElement("p");
@@ -67,7 +56,6 @@
       p.textContent = preview;
       searchItemDiv.appendChild(p);
     }
-
     // Set the "data-url" attribute to the provided url
     searchItemDiv.setAttribute("data-url", url);
 
@@ -224,16 +212,16 @@
 
   function searchResultToDOM(searchResult) {
     $container.empty();
-    for (const key in searchResult) {
+    for (var key in searchResult) {
       $container.append(sectionFactory(key.toUpperCase(), searchResult[key]));
     }
   }
 
   function scrollTo($item) {
     if ($item.length === 0) return;
-    const wrapperHeight = $wrapper[0].clientHeight;
-    const itemTop = $item.position().top - $wrapper.scrollTop();
-    const itemBottom = $item[0].clientHeight + $item.position().top;
+    var wrapperHeight = $wrapper[0].clientHeight;
+    var itemTop = $item.position().top - $wrapper.scrollTop();
+    var itemBottom = $item[0].clientHeight + $item.position().top;
     if (itemBottom > wrapperHeight + $wrapper.scrollTop()) {
       $wrapper.scrollTop(itemBottom - $wrapper[0].clientHeight);
     }
@@ -243,15 +231,15 @@
   }
 
   function selectItemByDiff(value) {
-    const $items = $.makeArray($container.find(".ins-selectable"));
-    let prevPosition = -1;
+    var $items = $.makeArray($container.find(".ins-selectable"));
+    var prevPosition = -1;
     $items.forEach(function (item, index) {
       if ($(item).hasClass("active")) {
         prevPosition = index;
         return;
       }
     });
-    const nextPosition = ($items.length + prevPosition + value) % $items.length;
+    var nextPosition = ($items.length + prevPosition + value) % $items.length;
     $($items[prevPosition]).removeClass("active");
     $($items[nextPosition]).addClass("active");
     scrollTo($($items[nextPosition]));
@@ -268,7 +256,7 @@
       $main.addClass("show");
     }
     $input.on("input", function () {
-      const keywords = $(this).val();
+      var keywords = $(this).val();
       searchResultToDOM(search(json, keywords));
     });
     $input.trigger("input");
