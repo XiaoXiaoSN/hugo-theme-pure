@@ -18,18 +18,22 @@
       }
     };
 
-    function tagCloud(where, min, max) {
+    function tagCloud(where, min, max, count) {
       let iMax = 0;
       let iMin = 0;
-      $(where).each(function() {
-        let weight = Number($(this).attr("rel"));
-        if(iMax < weight) iMax = weight;
-        if(iMin > weight || iMin == 0) iMin = weight;
+
+      const elements = document.querySelectorAll(where);
+
+      elements.forEach((element) => {
+        const weight = Number(element.getAttribute("rel"));
+        if (iMax < weight) iMax = weight;
+        if (iMin > weight || iMin == 0) iMin = weight;
       });
-      let step = (max - min)/(iMax - iMin);
-      $(where).each(function() {
-        let weight = $(this).attr("rel") - iMin;
-        $(this).css({"font-size": min + (weight * step) + 'px'});
+
+      const step = (max - min) / (iMax - iMin);
+      elements.forEach((element) => {
+        const weight = element.getAttribute("rel") - iMin;
+        element.style.fontSize = `${min + (weight * step)}px`;
       });
     };
   </script>
